@@ -1,0 +1,4 @@
+A) Browser Sync
+  > npm install -g browser-sync
+  > browser-sync start --server --directory --files "**/*" (run at the project directory)
+

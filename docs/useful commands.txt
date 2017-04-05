@@ -1,0 +1,9 @@
+A) Find a specific class in JAR files (Windows)
+  > for /R %G in (*.jar) do @jar -tvf "%G" | find "ClassName" > NUL && echo %G
+  > for /R %G in (*.jar) do jar -tvf "%G" | find "ClassName"
+
+B) Network status (Windows)
+  > netstat -ano
+
+
+
