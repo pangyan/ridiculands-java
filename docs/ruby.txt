@@ -1,0 +1,9 @@
+Install Ruby with Ruby Dev Kit
+
+Mongo-Ruby driver
+> gem update
+> gem install mongo
+> gem install bson_ext
+
+irb
+> require 'mongo'
