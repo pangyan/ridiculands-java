@@ -6,8 +6,16 @@ Mongo-Ruby driver
 > gem install bson_ext
 
 irb
+> system('cls')
+
 > require 'mongo'
 > db = Mongo::Client.new('mongodb://localhost:27017')
 > db = db.use('test')
 > db[:zips].insert_one(:_id => "100", :city => "city01", :loc => [-76.05922700000001, 39.564894], :pop => 4678, :state => "MD")
 > db[:zips].find(:city => "city01").count
+> db[:zips].find(:city => "city01").first
+> db[:zips].find(:city => "city01").to_a
+
+> require 'pp'
+> db[:zips].find().each { |r| puts r }
+> db[:zips].find({:state => "MD")}).projection(state:true).first
