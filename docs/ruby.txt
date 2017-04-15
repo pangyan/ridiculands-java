@@ -7,3 +7,7 @@ Mongo-Ruby driver
 
 irb
 > require 'mongo'
+> db = Mongo::Client.new('mongodb://localhost:27017')
+> db = db.use('test')
+> db[:zips].insert_one(:_id => "100", :city => "city01", :loc => [-76.05922700000001, 39.564894], :pop => 4678, :state => "MD")
+> db[:zips].find(:city => "city01").count
