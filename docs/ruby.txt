@@ -19,3 +19,6 @@ irb
 > require 'pp'
 > db[:zips].find().each { |r| puts r }
 > db[:zips].find({:state => "MD")}).projection(state:true).first
+
+scaffolding
+> rails g scaffold_controller Zip id city state population:integer
