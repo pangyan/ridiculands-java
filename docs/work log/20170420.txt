@@ -1,0 +1,37 @@
+20170420
+
+Starting JBoss but found the following error this morning...
+
+11:39:32 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-5) MSC000001: Failed to start service jboss.deployment.unit."dataserver.war".STRUCTURE: org.jboss.msc.service.StartException in service jboss.deployment.unit."dataserver.war".STRUCTURE: WFLYSRV0153: Failed to process phase STRUCTURE of deployment "dataserver.war"
+	at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:154) [wildfly-server-2.1.10.Final-redhat-1.jar:2.1.10.Final-redhat-1]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1948) [jboss-msc-1.2.6.Final-redhat-1.jar:1.2.6.Final-redhat-1]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1881) [jboss-msc-1.2.6.Final-redhat-1.jar:1.2.6.Final-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_74]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_74]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_74]
+Caused by: java.lang.SecurityException: Invalid signature file digest for Manifest main attributes
+	at sun.security.util.SignatureFileVerifier.processImpl(SignatureFileVerifier.java:284) [rt.jar:1.8.0_74]
+	at sun.security.util.SignatureFileVerifier.process(SignatureFileVerifier.java:238) [rt.jar:1.8.0_74]
+	at java.util.jar.JarVerifier.processEntry(JarVerifier.java:316) [rt.jar:1.8.0_74]
+	at java.util.jar.JarVerifier.update(JarVerifier.java:228) [rt.jar:1.8.0_74]
+	at java.util.jar.JarFile.initializeVerifier(JarFile.java:383) [rt.jar:1.8.0_74]
+	at java.util.jar.JarFile.getInputStream(JarFile.java:450) [rt.jar:1.8.0_74]
+	at org.jboss.vfs.spi.JavaZipFileSystem.openInputStream(JavaZipFileSystem.java:182) [jboss-vfs-3.2.11.Final-redhat-1.jar:3.2.11.Final-redhat-1]
+	at org.jboss.vfs.VirtualFile.openStream(VirtualFile.java:259) [jboss-vfs-3.2.11.Final-redhat-1.jar:3.2.11.Final-redhat-1]
+	at org.jboss.vfs.VFSUtils.readManifest(VFSUtils.java:241) [jboss-vfs-3.2.11.Final-redhat-1.jar:3.2.11.Final-redhat-1]
+	at org.jboss.vfs.VFSUtils.getManifest(VFSUtils.java:227) [jboss-vfs-3.2.11.Final-redhat-1.jar:3.2.11.Final-redhat-1]
+	at org.jboss.as.server.deployment.module.ManifestAttachmentProcessor.getManifest(ManifestAttachmentProcessor.java:76) [wildfly-server-2.1.10.Final-redhat-1.jar:2.1.10.Final-redhat-1]
+	at org.jboss.as.server.deployment.module.ManifestAttachmentProcessor.deploy(ManifestAttachmentProcessor.java:65) [wildfly-server-2.1.10.Final-redhat-1.jar:2.1.10.Final-redhat-1]
+	at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:147) [wildfly-server-2.1.10.Final-redhat-1.jar:2.1.10.Final-redhat-1]
+	... 5 more
+
+It looks like that some signed JARs are deployed...
+http://stackoverflow.com/questions/34855649/invalid-signature-file-digest-for-manifest-main-attributes-exception-while-tryin
+
+
+Identified 3 JARs
+  activation-1.0.2.jar
+  edtftpj-pro-5.2.1.jar
+  itext-2.0.8.jar
+
+The edtftpj-pro-5.2.1.jar is causing issue... looking into why...
