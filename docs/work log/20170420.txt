@@ -35,3 +35,11 @@ Identified 3 JARs
   itext-2.0.8.jar
 
 The edtftpj-pro-5.2.1.jar is causing issue... looking into why...
+
+I tried removing the file META-INF/EDTJARKE.DSA from the JAR and the server starts without issue.
+
+Why is the DSA causing issue?
+
+...
+
+
