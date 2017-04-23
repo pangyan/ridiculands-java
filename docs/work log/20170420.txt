@@ -42,4 +42,9 @@ Why is the DSA causing issue?
 
 ...
 
+Deploying edtftpj-pro-5.2.1.jar without the signature files --> JBoss starts normally.
+Deploying edtftpj-pro-5.1.x.jar with the signature files --> JBoss starts normally.
+
+Deducing that our copys of sedtftpj-pro-5.2.1.jar may have a bad signature file or is having its content changed by someone...
+
 
