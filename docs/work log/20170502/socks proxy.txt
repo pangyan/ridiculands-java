@@ -1,0 +1,32 @@
+Proxy Server: 
+  CCProxy 8.0 installed on Windows 7
+
+===== Start Connection Method =====
+
+Socket sock = null;
+Proxy proxy = null;
+try {
+  proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("10.10.1.229", 2080));
+  if (_host != null) {
+    // sock = new Socket(_host, _port);
+    sock = new Socket(proxy);
+    sock.connect(new InetSocketAddress("10.10.1.229", _port));
+  } else {
+    sock = new Socket(_inet, _port);
+    // sock = new Socket(proxy);
+  }
+} catch (IOException ioe) {
+  _exception = ioe;
+  return;
+}
+_connection = sock;
+
+===== End Connection Method =====
+
+Notes:
+1) sock.connect(new InetSocketAddress("10.10.1.229", _port));
+    I first put "localhost" instead of the actual IP (local machine's IP is 10.10.1.229).  However, it gave an exception:
+    java.net.SocketException socks server general failure
+
+2) Does Java support SOCKS proxy authentication?
+
