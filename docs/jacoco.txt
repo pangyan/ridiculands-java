@@ -1,0 +1,15 @@
+===== 20170515 =====
+To make line level coverage available in jacoco report, we need to makes all source files known to jacoco, under the element <sourcefiles>, in codesoverage.xml.
+(sometimes source files are put under different folders...)
+
+e.g.:
+
+<sourcefiles>
+	<fileset dir="${src-dir}">
+		<patternset refid="core-files"/>
+	</fileset>
+	<fileset dir="${src-dir}/../../13/java">
+		<patternset refid="core-files"/>
+	</fileset>
+</sourcefiles>
+
