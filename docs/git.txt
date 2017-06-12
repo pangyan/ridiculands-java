@@ -6,6 +6,11 @@
 > git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] [--ff] [-S[<keyid>]] <commit>...
 reference: https://git-scm.com/docs/git-cherry-pick
 
+===== ref clone =====
+> git refclone http://git/dev/release
 
+===== branching =====
+> git branch -a
+> git checkout <branch name>
 
 
