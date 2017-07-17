@@ -35,9 +35,11 @@ public class TestOCA {
 		}
 		System.out.println("E");
 	}
-	
-	public interface Animal { public String getName(); }
+
+	// 
+	public interface Animal { public default String getName() { return null; } }
 	interface Mammal { public default String getName() { return null; } }
-	abstract class Otter implements Mammal, Animal {}
+	abstract class Otter implements Mammal, Animal { @Override public String getName() { return "DNLM!"; } }
+
 
 }
