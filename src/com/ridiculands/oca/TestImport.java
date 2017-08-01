@@ -11,6 +11,9 @@ public class TestImport {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Date date = null;
+
+		// classes with default scope 
+		TestClassName1 tcn1 = null;
 	}
 
 }
