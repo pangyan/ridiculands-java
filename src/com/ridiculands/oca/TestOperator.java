@@ -39,11 +39,27 @@ public class TestOperator {
 		System.err.println("_____________________________________");
 	}
 
+	public void testAddition() {
+		byte b1 = 1;
+		byte b2 = 2;
+		byte b3 = 7;
+		b3 %= b1 * b2;
+		System.err.println(b3);
+
+		long f1 = 4l;
+		long f2 = 7777777777777777777l;
+		float f3 = f1 + f2;
+		System.err.println(f3);
+
+		System.err.println("_____________________________________");
+	}
+
 	public static void main(String[] args) {
 		TestOperator to = new TestOperator();
-		to.testPrePostIncrement();
 		to.testBinary();
 		to.testBitwiseShift();
+		to.testPrePostIncrement();
+		to.testAddition();
 	}
 
 }
