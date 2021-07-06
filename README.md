@@ -1,8 +1,9 @@
-# ridiculands
-Ridiculands
-It is a playground for programming.
+# ridiculands backend
+Ridiculands Backend - 
+It is a playground for backend components written in Java.
 
 - Core Java
-- Spring
-- Hibernate
+- Docker
 - gradle build
+- Hibernate
+- Spring Boot
