@@ -7,3 +7,10 @@ It is a playground for backend components written in Java.
 - gradle build
 - Hibernate
 - Spring Boot
+
+Build
+```
+> docker build -t yourusername/repository-name .
+or
+> docker-compose up --build
+```
