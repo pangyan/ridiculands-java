@@ -1,15 +1,14 @@
 package com.ridiculands.rest;
 
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@EnableAutoConfiguration
-public class SampleController extends SpringBootServletInitializer {
+@SpringBootApplication
+public class SampleController {
 
     @RequestMapping("/firstspringboot")
     @ResponseBody
@@ -23,12 +22,7 @@ public class SampleController extends SpringBootServletInitializer {
         return "Hello World!  DNLMCFH 2.";
     }
 
-//    public static void main(String[] args) throws Exception {
-//        SpringApplication.run(SampleController.class, args);
-//    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SampleController.class, RidiculandsController.class);
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(SampleController.class, args);
     }
 }

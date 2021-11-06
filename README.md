@@ -8,9 +8,11 @@ It is a playground for backend components written in Java.
 - Hibernate
 - Spring Boot
 
-Build
+Build docker image
 ```
 > docker build -t yourusername/repository-name .
-or
+```
+Or build docker image and start it in a container 
+```
 > docker-compose up --build
 ```
