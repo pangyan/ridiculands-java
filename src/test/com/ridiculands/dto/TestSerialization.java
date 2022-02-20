@@ -21,6 +21,7 @@ public class TestSerialization {
     public void testSerializeCat() throws Exception {
         Cat cat = new Cat("Tom", 5, new BigDecimal("30"));
         String json = objectMapper.writeValueAsString(cat);
+        System.err.println(json);
         assertThat(json, equalTo(CAT_JSON));
     }
 

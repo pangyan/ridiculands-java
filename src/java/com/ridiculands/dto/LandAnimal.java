@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.Optional;
 
 @JsonTypeInfo(
     use = JsonTypeInfo.Id.NAME,
@@ -30,10 +32,17 @@ public abstract class LandAnimal {
     @JsonProperty
     protected BigDecimal bodyLength;
 
+    protected Optional<String> hobby;
+
     public LandAnimal(String name, Integer age, BigDecimal bodyLength) {
+        this(name, age, bodyLength, Optional.empty());
+    }
+
+    public LandAnimal(String name, Integer age, BigDecimal bodyLength, Optional<String> hobby) {
         this.name = name;
         this.age = age;
         this.bodyLength = bodyLength;
+        this.hobby = hobby;
     }
 
     public abstract void eat();
@@ -56,5 +65,29 @@ public abstract class LandAnimal {
 
     public BigDecimal getBodyLength() {
         return bodyLength;
+    }
+
+    public Optional<String> getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(Optional<String> hobby) {
+        this.hobby = hobby;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LandAnimal)) return false;
+        LandAnimal that = (LandAnimal) o;
+        return name.equals(that.name) &&
+                age.equals(that.age) &&
+                bodyLength.equals(that.bodyLength) &&
+                hobby.equals(that.hobby);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, bodyLength, hobby);
     }
 }
