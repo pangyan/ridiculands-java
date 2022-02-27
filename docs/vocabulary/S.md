@@ -11,6 +11,10 @@
   verb [I] /ˈʃɪm.ər/<br/>
   to shine in such a way that the light seems to shake slightly and quickly
 
+- smirk<br/>
+  noun [C] disapproving /smɜːk/<br/>
+  a smile that expresses satisfaction or pleasure about having done something or knowing something that is not known by someone else
+
 - startle<br/>
   verb [T] /ˈstɑː.təl/<br/>
   to do something unexpected that surprises and sometimes worries a person or animal
