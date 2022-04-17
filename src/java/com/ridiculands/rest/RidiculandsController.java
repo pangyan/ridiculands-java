@@ -1,5 +1,6 @@
 package com.ridiculands.rest;
 
+import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ public class RidiculandsController {
             "Dragon Ball Z",
             "Super Mario Odyssey"));
 
+    @Timed("com.ridiculands.rest.games.timer")
     @GetMapping(value="/games", produces= MediaType.APPLICATION_JSON_VALUE)
     public List<String> listGames() {
         LOGGER.debug("listGames");
