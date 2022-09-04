@@ -125,7 +125,7 @@ public class TestMultiThreading {
         for (int j = 0; j < 100; j++) {
             tmt.reset();
             System.err.print("Run " + j + ' ');
-            tmt.test1a();
+            tmt.test2();
         }
     }
 }

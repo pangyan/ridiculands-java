@@ -4,6 +4,7 @@ import io.micrometer.core.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,9 @@ public class RidiculandsController {
             "Dragon Ball Z",
             "Super Mario Odyssey"));
 
+    // TODO ISRAELW @PreAuthorize is not working
+    // TODO ISRAELW need to move config next to or in subpackages of SampleController (@SpringBootApplication)
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Timed("com.ridiculands.rest.games.timer")
     @GetMapping(value="/games", produces= MediaType.APPLICATION_JSON_VALUE)
     public List<String> listGames() {
