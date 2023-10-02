@@ -31,8 +31,8 @@ public class StreamBenchmarksV2 {
 
         System.out.println("===== DNLM =====");
 
-//        benchmark.measure(benchmark.testLoop(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
-//        benchmark.measure(benchmark.testSequentialStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
-//        benchmark.measure(benchmark.testParallelStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
+        benchmark.measure("large linked list loop", factory.createLargeLinkedListLoopBenchmarkMethod());
+        benchmark.measure("large linked list sequential", factory.createLargeLinkedListSequentialStreamBenchmarkMethod());
+        benchmark.measure("large linked list parallel", factory.createLargeLinkedListParallelStreamBenchmarkMethod());
     }
 }
