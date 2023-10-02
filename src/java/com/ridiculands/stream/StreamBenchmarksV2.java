@@ -1,58 +1,38 @@
 package com.ridiculands.stream;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class StreamBenchmarksV2 {
 
-    private Function<List<Integer>, Integer> testLoop() {
-        return l -> {
-            Integer sum = 0;
-            for (int i = 0; i < l.size(); i++) {
-                sum += l.get(i);
-            }
-            return sum;
-        };
-    }
+    private static final int NUMBER_OF_RUNS = 1000;
 
-    private Function<List<Integer>, Integer> testSequentialStream() {
-        return l -> l.stream().mapToInt(i -> i).sum();
-    }
-
-    private Function<List<Integer>, Integer> testParallelStream() {
-        return l -> l.parallelStream().mapToInt(i -> i).sum();
-    }
-
-    private void measure(Function<List<Integer>, Integer> test, List<Integer> testData) {
+    private void measure(String name, BenchmarkMethod test) {
         long start = System.nanoTime();
-        for (int i = 0; i < 1000; i++) {
-            test.apply(testData);
+        for (int i = 0; i < NUMBER_OF_RUNS; i++) {
+            test.execute();
         }
         long end = System.nanoTime();
-        System.out.println("Average execution time = " + (end - start) / 1000 / 1000 + " microseconds");
+//        System.out.println("Average execution time = " + (end - start) / NUMBER_OF_RUNS / 1000 + " microseconds");
+
+        // test name,execution time in ms
+        System.out.println(name + "," + (end - start) / NUMBER_OF_RUNS / 1000);
     }
+
     public static void main(String[] args) {
+        BenchmarkMethodFactory factory = new BenchmarkMethodFactory();
         StreamBenchmarksV2 benchmark = new StreamBenchmarksV2();
-        benchmark.measure(benchmark.testLoop(), Arrays.asList(1, 2, 3, 4, 5));
-        benchmark.measure(benchmark.testSequentialStream(), Arrays.asList(1, 2, 3, 4, 5));
-        benchmark.measure(benchmark.testParallelStream(), Arrays.asList(1, 2, 3, 4, 5));
+        benchmark.measure("small array list loop", factory.createSmallArrayListLoopBenchmarkMethod());
+        benchmark.measure("small array list sequential", factory.createSmallArrayListSequentialStreamBenchmarkMethod());
+        benchmark.measure("small array list parallel", factory.createSmallArrayListParallelStreamBenchmarkMethod());
 
         System.out.println("===== DNLM =====");
 
-        benchmark.measure(benchmark.testLoop(), IntStream.range(1, 1000001).boxed().collect(Collectors.toList()));
-        benchmark.measure(benchmark.testSequentialStream(), IntStream.range(1, 1000001).boxed().collect(Collectors.toList()));
-        benchmark.measure(benchmark.testParallelStream(), IntStream.range(1, 1000001).boxed().collect(Collectors.toList()));
+        benchmark.measure("large array list loop", factory.createLargeArrayListLoopBenchmarkMethod());
+        benchmark.measure("large array list sequential", factory.createLargeArrayListSequentialStreamBenchmarkMethod());
+        benchmark.measure("large array list parallel", factory.createLargeArrayListParallelStreamBenchmarkMethod());
 
         System.out.println("===== DNLM =====");
 
-        benchmark.measure(benchmark.testLoop(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
-        benchmark.measure(benchmark.testSequentialStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
-        benchmark.measure(benchmark.testParallelStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
+//        benchmark.measure(benchmark.testLoop(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
+//        benchmark.measure(benchmark.testSequentialStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
+//        benchmark.measure(benchmark.testParallelStream(), IntStream.range(1, 1001).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
-
 }
