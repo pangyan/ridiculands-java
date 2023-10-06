@@ -1,8 +1,17 @@
 package com.ridiculands.stream;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StreamBenchmarksV2 {
 
     private static final int NUMBER_OF_RUNS = 1000;
+
+    private final BenchmarkMethodFactory benchmarkMethodFactory;
+
+    public StreamBenchmarksV2(BenchmarkMethodFactory benchmarkMethodFactory) {
+        this.benchmarkMethodFactory = benchmarkMethodFactory;
+    }
 
     private void measure(String name, BenchmarkMethod test) {
         long start = System.nanoTime();
@@ -12,27 +21,28 @@ public class StreamBenchmarksV2 {
         long end = System.nanoTime();
 //        System.out.println("Average execution time = " + (end - start) / NUMBER_OF_RUNS / 1000 + " microseconds");
 
+        // csb output
         // test name,execution time in ms
         System.out.println(name + "," + (end - start) / NUMBER_OF_RUNS / 1000);
     }
 
+    public void startBenchmark() {
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " loop", benchmarkMethodFactory.createLoopBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " sequential stream", benchmarkMethodFactory.createSequentialStreamBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " parallel stream", benchmarkMethodFactory.createParallelStreamBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " parallel stream", benchmarkMethodFactory.createParallelStreamBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " sequential stream", benchmarkMethodFactory.createSequentialStreamBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " loop", benchmarkMethodFactory.createLoopBenchmarkMethod());
+    }
+
     public static void main(String[] args) {
-        BenchmarkMethodFactory factory = new BenchmarkMethodFactory();
-        StreamBenchmarksV2 benchmark = new StreamBenchmarksV2();
-        benchmark.measure("small array list loop", factory.createSmallArrayListLoopBenchmarkMethod());
-        benchmark.measure("small array list sequential", factory.createSmallArrayListSequentialStreamBenchmarkMethod());
-        benchmark.measure("small array list parallel", factory.createSmallArrayListParallelStreamBenchmarkMethod());
+        // initialize benchmark method factory
+        // create your own BenchmarkMethodFactory and put it here for benchmarking your process
+//        BenchmarkMethodFactory benchmarkMethodFactory = new SmallArrayListBenchmarkMethodFactory();
+        BenchmarkMethodFactory benchmarkMethodFactory = new LargeArrayListBenchmarkMethodFactory();
+//        BenchmarkMethodFactory benchmarkMethodFactory = new LinkedListBenchmarkMethodFactory();
 
-        System.out.println("===== DNLM =====");
-
-        benchmark.measure("large array list loop", factory.createLargeArrayListLoopBenchmarkMethod());
-        benchmark.measure("large array list sequential", factory.createLargeArrayListSequentialStreamBenchmarkMethod());
-        benchmark.measure("large array list parallel", factory.createLargeArrayListParallelStreamBenchmarkMethod());
-
-        System.out.println("===== DNLM =====");
-
-        benchmark.measure("large linked list loop", factory.createLargeLinkedListLoopBenchmarkMethod());
-        benchmark.measure("large linked list sequential", factory.createLargeLinkedListSequentialStreamBenchmarkMethod());
-        benchmark.measure("large linked list parallel", factory.createLargeLinkedListParallelStreamBenchmarkMethod());
+        StreamBenchmarksV2 benchmarkApp = new StreamBenchmarksV2(benchmarkMethodFactory);
+        benchmarkApp.startBenchmark();
     }
 }
