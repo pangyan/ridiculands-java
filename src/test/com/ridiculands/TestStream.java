@@ -2,9 +2,15 @@ package com.ridiculands;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,6 +84,23 @@ public class TestStream {
         BiConsumer<List, String> a = List::add;
     }
 
+    private void findOddNumbers() {
+        List<Integer> numbers = Arrays.asList(5, 12, 6, 53, 29, 37, 24, 60, 12, 25);
+        Stream<Integer> stream = numbers.stream();
+        stream
+            .filter(i -> i % 2 == 1)
+            .collect(Collectors.toList());
+
+        try {
+            Stream<String> lines = Files.lines(Path.of("/Users/pywong/IdeaProjects/ridiculands-java/docs/work log/20170502.txt"));
+            lines.flatMap(s -> Arrays.stream(s.split(" "))).forEach(System.out::println);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         TestStream ts = new TestStream();
         System.err.println(ts.convertToDelimitedString());
@@ -86,5 +109,6 @@ public class TestStream {
 
         ts.flatMap();
         ts.transform();
+        ts.findOddNumbers();
     }
 }
