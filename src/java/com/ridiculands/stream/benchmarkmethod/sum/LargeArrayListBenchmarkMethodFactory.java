@@ -1,20 +1,29 @@
-package com.ridiculands.stream;
+package com.ridiculands.stream.benchmarkmethod.sum;
 
-import java.util.LinkedList;
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethod;
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class LinkedListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+/**
+ *    size: large - 100000
+ *    pipeline: list --> stream --> map --> sum
+ *    operation: sum
+ *    collection: arrayList
+ */
+public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+    private static final List<Integer> l = IntStream.range(1, 100001).boxed().collect(Collectors.toList());
+
     @Override
     public String getBenchmarkMethodName() {
-        return "Linked List Benchmark";
+        return "Large Array List Benchmark";
     }
 
     @Override
     public BenchmarkMethod createLoopBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 10001).boxed().collect(Collectors.toCollection(LinkedList::new));
             Integer sum = 0;
             for (int i = 0; i < l.size(); i++) {
                 sum += l.get(i);
@@ -25,7 +34,6 @@ public class LinkedListBenchmarkMethodFactory implements BenchmarkMethodFactory 
     @Override
     public BenchmarkMethod createSequentialStreamBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 10001).boxed().collect(Collectors.toCollection(LinkedList::new));
             Integer sum = l.stream().mapToInt(i -> i).sum();
         };
     }
@@ -33,7 +41,6 @@ public class LinkedListBenchmarkMethodFactory implements BenchmarkMethodFactory 
     @Override
     public BenchmarkMethod createParallelStreamBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 10001).boxed().collect(Collectors.toCollection(LinkedList::new));
             Integer sum = l.parallelStream().mapToInt(i -> i).sum();
         };
     }

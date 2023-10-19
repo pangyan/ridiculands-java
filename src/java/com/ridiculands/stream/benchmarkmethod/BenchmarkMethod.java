@@ -1,4 +1,4 @@
-package com.ridiculands.stream;
+package com.ridiculands.stream.benchmarkmethod;
 
 @FunctionalInterface
 public interface BenchmarkMethod {

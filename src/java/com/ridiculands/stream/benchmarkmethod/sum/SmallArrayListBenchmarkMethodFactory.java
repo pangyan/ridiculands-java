@@ -1,24 +1,28 @@
-package com.ridiculands.stream;
+package com.ridiculands.stream.benchmarkmethod.sum;
 
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethod;
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
+
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
- *    size: 100000
+ *    size: small - 10
  *    pipeline: list --> stream --> map --> sum
+ *    operation: sum
  *    collection: arrayList
  */
-public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+public class SmallArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+    private static final List<Integer> l = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
     @Override
     public String getBenchmarkMethodName() {
-        return "Large Array List Benchmark";
+        return "Small Array List Benchmark";
     }
 
     @Override
     public BenchmarkMethod createLoopBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 100001).boxed().collect(Collectors.toList());
             Integer sum = 0;
             for (int i = 0; i < l.size(); i++) {
                 sum += l.get(i);
@@ -29,7 +33,6 @@ public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFact
     @Override
     public BenchmarkMethod createSequentialStreamBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 100001).boxed().collect(Collectors.toList());
             Integer sum = l.stream().mapToInt(i -> i).sum();
         };
     }
@@ -37,7 +40,6 @@ public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFact
     @Override
     public BenchmarkMethod createParallelStreamBenchmarkMethod() {
         return () -> {
-            List<Integer> l = IntStream.range(1, 100001).boxed().collect(Collectors.toList());
             Integer sum = l.parallelStream().mapToInt(i -> i).sum();
         };
     }

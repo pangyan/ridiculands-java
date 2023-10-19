@@ -1,7 +1,10 @@
 package com.ridiculands.stream;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethod;
+import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
+import com.ridiculands.stream.benchmarkmethod.sum.LargeArrayListBenchmarkMethodFactory;
+import com.ridiculands.stream.benchmarkmethod.sum.LinkedListBenchmarkMethodFactory;
+import com.ridiculands.stream.benchmarkmethod.sum.SmallArrayListBenchmarkMethodFactory;
 
 public class StreamBenchmarksV2 {
 
@@ -38,8 +41,8 @@ public class StreamBenchmarksV2 {
     public static void main(String[] args) {
         // initialize benchmark method factory
         // create your own BenchmarkMethodFactory and put it here for benchmarking your process
-//        BenchmarkMethodFactory benchmarkMethodFactory = new SmallArrayListBenchmarkMethodFactory();
-        BenchmarkMethodFactory benchmarkMethodFactory = new LargeArrayListBenchmarkMethodFactory();
+        BenchmarkMethodFactory benchmarkMethodFactory = new SmallArrayListBenchmarkMethodFactory();
+//        BenchmarkMethodFactory benchmarkMethodFactory = new LargeArrayListBenchmarkMethodFactory();
 //        BenchmarkMethodFactory benchmarkMethodFactory = new LinkedListBenchmarkMethodFactory();
 
         StreamBenchmarksV2 benchmarkApp = new StreamBenchmarksV2(benchmarkMethodFactory);
