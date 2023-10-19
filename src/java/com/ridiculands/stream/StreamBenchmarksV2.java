@@ -2,6 +2,7 @@ package com.ridiculands.stream;
 
 import com.ridiculands.stream.benchmarkmethod.BenchmarkMethod;
 import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
+import com.ridiculands.stream.benchmarkmethod.marshall.LargeArrayListMarshallBenchmarkMethodFactory;
 import com.ridiculands.stream.benchmarkmethod.sum.LargeArrayListBenchmarkMethodFactory;
 import com.ridiculands.stream.benchmarkmethod.sum.LinkedListBenchmarkMethodFactory;
 import com.ridiculands.stream.benchmarkmethod.sum.SmallArrayListBenchmarkMethodFactory;
@@ -33,17 +34,18 @@ public class StreamBenchmarksV2 {
         measure(benchmarkMethodFactory.getBenchmarkMethodName() + " loop", benchmarkMethodFactory.createLoopBenchmarkMethod());
         measure(benchmarkMethodFactory.getBenchmarkMethodName() + " sequential stream", benchmarkMethodFactory.createSequentialStreamBenchmarkMethod());
         measure(benchmarkMethodFactory.getBenchmarkMethodName() + " parallel stream", benchmarkMethodFactory.createParallelStreamBenchmarkMethod());
-        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " parallel stream", benchmarkMethodFactory.createParallelStreamBenchmarkMethod());
-        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " sequential stream", benchmarkMethodFactory.createSequentialStreamBenchmarkMethod());
         measure(benchmarkMethodFactory.getBenchmarkMethodName() + " loop", benchmarkMethodFactory.createLoopBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " sequential stream", benchmarkMethodFactory.createSequentialStreamBenchmarkMethod());
+        measure(benchmarkMethodFactory.getBenchmarkMethodName() + " parallel stream", benchmarkMethodFactory.createParallelStreamBenchmarkMethod());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // initialize benchmark method factory
         // create your own BenchmarkMethodFactory and put it here for benchmarking your process
-        BenchmarkMethodFactory benchmarkMethodFactory = new SmallArrayListBenchmarkMethodFactory();
+//        BenchmarkMethodFactory benchmarkMethodFactory = new SmallArrayListBenchmarkMethodFactory();
 //        BenchmarkMethodFactory benchmarkMethodFactory = new LargeArrayListBenchmarkMethodFactory();
 //        BenchmarkMethodFactory benchmarkMethodFactory = new LinkedListBenchmarkMethodFactory();
+        LargeArrayListMarshallBenchmarkMethodFactory benchmarkMethodFactory = new LargeArrayListMarshallBenchmarkMethodFactory();
 
         StreamBenchmarksV2 benchmarkApp = new StreamBenchmarksV2(benchmarkMethodFactory);
         benchmarkApp.startBenchmark();
