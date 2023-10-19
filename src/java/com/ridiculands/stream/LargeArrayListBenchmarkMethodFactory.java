@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ *    size: 100000
+ *    pipeline: list --> stream --> map --> sum
+ *    collection: arrayList
+ */
 public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
     @Override
     public String getBenchmarkMethodName() {
