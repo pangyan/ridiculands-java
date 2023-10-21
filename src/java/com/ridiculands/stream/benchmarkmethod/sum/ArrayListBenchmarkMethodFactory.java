@@ -5,6 +5,8 @@ import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  *    size: small - 10
@@ -12,12 +14,18 @@ import java.util.List;
  *    operation: sum
  *    collection: arrayList
  */
-public class SmallArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
-    private static final List<Integer> l = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+public class ArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+    private static List<Integer> l;
+    private int collectionSize;
+
+    public ArrayListBenchmarkMethodFactory(int collectionSize) {
+        l = IntStream.range(1, collectionSize + 1).boxed().collect(Collectors.toList());
+        this.collectionSize = collectionSize;
+    }
 
     @Override
     public String getBenchmarkMethodName() {
-        return "Small Array List Benchmark";
+        return "Array List Benchmark - " + collectionSize + " elements";
     }
 
     @Override

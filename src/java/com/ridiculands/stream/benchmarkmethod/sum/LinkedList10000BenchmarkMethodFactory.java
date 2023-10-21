@@ -3,22 +3,23 @@ package com.ridiculands.stream.benchmarkmethod.sum;
 import com.ridiculands.stream.benchmarkmethod.BenchmarkMethod;
 import com.ridiculands.stream.benchmarkmethod.BenchmarkMethodFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- *    size: large - 100000
+ *    size: medium - 10000
  *    pipeline: list --> stream --> map --> sum
  *    operation: sum
- *    collection: arrayList
+ *    collection: linkedList
  */
-public class LargeArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
-    private static final List<Integer> l = IntStream.range(1, 100001).boxed().collect(Collectors.toList());
+public class LinkedList10000BenchmarkMethodFactory implements BenchmarkMethodFactory {
+    private static final List<Integer> l = IntStream.range(1, 10001).boxed().collect(Collectors.toCollection(LinkedList::new));
 
     @Override
     public String getBenchmarkMethodName() {
-        return "Large Array List Benchmark";
+        return "Linked List Benchmark";
     }
 
     @Override

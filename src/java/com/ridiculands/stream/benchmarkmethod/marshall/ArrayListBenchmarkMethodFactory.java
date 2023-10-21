@@ -19,16 +19,19 @@ import java.util.stream.Collectors;
  *    operation: sum
  *    collection: arrayList
  */
-public class LargeArrayListMarshallBenchmarkMethodFactory implements BenchmarkMethodFactory {
-    private static final List<Order> l = prepareTestOrders();
+public class ArrayListBenchmarkMethodFactory implements BenchmarkMethodFactory {
+    private static List<Order> l;
     private JAXBContext context = JAXBContext.newInstance(Order.class);
+    private int collectionSize;
 
-    public LargeArrayListMarshallBenchmarkMethodFactory() throws JAXBException {
+    public ArrayListBenchmarkMethodFactory(int collectionSize) throws JAXBException {
+        l = prepareTestOrders(collectionSize);
+        this.collectionSize = collectionSize;
     }
 
     @Override
     public String getBenchmarkMethodName() {
-        return "Large Array List Benchmark";
+        return "Array List Benchmark - " + collectionSize + " elements";
     }
 
     @Override
@@ -71,11 +74,11 @@ public class LargeArrayListMarshallBenchmarkMethodFactory implements BenchmarkMe
     }
 
     // TODO ISRAELW
-    private static List<Order> prepareTestOrders() {
+    private static List<Order> prepareTestOrders(int collectionSize) {
         List<Order> orders = new ArrayList<>();
         Order order;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < collectionSize; i++) {
             order = new Order();
             order.setAmount(BigDecimal.TEN);
             order.setCreateDate(LocalDate.now());
